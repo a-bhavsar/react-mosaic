@@ -16,16 +16,27 @@ export function MosaicDropTarget({ path, position }: MosaicDropTargetProps) {
   const [{ isOver, draggedMosaicId }, connectDropTarget] = useDrop({
     accept: MosaicDragType.WINDOW,
     drop: (item: MosaicDragItem | undefined, _monitor): MosaicDropData => {
+      console.log(item);
+      console.log(_monitor);
+      console.log(mosaicId);
+      console.log(path);
+      console.log(position);
       if (mosaicId === item?.mosaicId) {
         return { path, position };
       } else {
         return {};
       }
     },
-    collect: (monitor) => ({
-      isOver: monitor.isOver(),
-      draggedMosaicId: (monitor.getItem() || {}).mosaicId,
-    }),
+    collect: (monitor) => {
+      console.log(monitor);
+      console.log(monitor.isOver());
+      console.log(monitor.getItem());
+      return {
+        isOver: monitor.isOver(),
+        draggedMosaicId: (monitor.getItem() || {}).mosaicId,
+      };
+      
+    },
   });
   return (
     <div
